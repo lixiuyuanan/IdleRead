@@ -7,7 +7,7 @@
 ## 下载与更新
 
 - 项目主页：https://github.com/lixiuyuanan/IdleRead
-- 发布页：https://github.com/lixiuyuanan/IdleRead/releases （下载 `IdleRead-版本号.apk`）
+- 发布页：下载：[Releases](../../releases) （下载 `IdleRead-版本号.apk`）
 - 国内镜像（非官方加速源，打不开时用）：把下载链接开头的 `https://github.com` 换成
   `https://gh-proxy.com/https://github.com` 或 `https://ghproxy.net/https://github.com`。
 
