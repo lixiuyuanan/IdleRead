@@ -9,7 +9,8 @@
 - 项目主页：https://github.com/lixiuyuanan/IdleRead
 - 发布页：下载：[Releases](../../releases) （下载 `IdleRead-版本号.apk`）
 - 国内镜像（非官方加速源，打不开时用）：把下载链接开头的 `https://github.com` 换成
-  `https://gh-proxy.org/https://github.com` 或 `https://gh-proxy.com/https://github.com`。
+  `https://gh-proxy.org/https://github.com`、`https://gh.ddlc.top/https://github.com`
+  或 `https://gh-proxy.com/https://github.com`。
 
 安装时如果提示「未知来源」，允许本次安装即可。新版本直接覆盖安装，不要先卸载。
 
@@ -22,6 +23,8 @@ App 内「我的 → 设置 → 软件更新与发布地址」可以检查新版
 ### 下载镜像源
 
 「我的 → 设置 → 下载镜像源」可以看到当前在用的镜像清单，点「同步」拉一次远端维护的最新清单。**同步是合并不是替换**：远端测过的排前面，内置的只要不重名就继续留着，所以同步不会让候选变少。拉不到就继续用现在这份，不影响使用。
+
+远端清单更新后，进「软件更新与发布地址」时会自动比对；**当前下载源过时时，页面顶部会提示「当前下载源已过时」，点「更新」一键同步**，不用再自己翻设置页。
 
 镜像都是第三方加速服务，只负责搬运文件；装之前一定会核对 SHA-256，对不上不会装。
 
