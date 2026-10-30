@@ -1,0 +1,19 @@
+build/
+dist/
+_test/profile/
+_test/shots/
+tools/release.keystore
+tools/keystore.properties
+tools/debug.keystore
+
+# 生成数据：文章/词典/词形，不入库
+android/app/src/main/assets/www/data/
+
+# 构建与测试产物
+__pycache__/
+_test/profile*/
+_test/_cache/
+_test/_data_backup*/
+_test/_old_app.*
+_test/pos_gold_*.json
+*.apk

@@ -181,6 +181,81 @@ App 内「我的 → 设置 → 软件更新与发布地址」可以检查新版
 
 ---
 
+## 源码
+
+本仓库自 2026-10-30 起只维护 **Android 移动端**，早期桌面版不再更新。
+仓库包含代码、算法与测试工具，**不包含**内置文章、词典数据与签名文件。
+
+### 目录导航
+
+```
+.
+├── mobile/
+│   ├── android/app/src/main/
+│   │   ├── AndroidManifest.xml
+│   │   ├── java/com/ldleread/app/     WebView 宿主、多源下载、应用内安装、站内网页
+│   │   ├── res/                       图标与主题资源
+│   │   └── assets/www/                index.html / app.js / app.css（ES5 单页应用）
+│   ├── tools/                         构建、发布、镜像测速、签名生成
+│   └── _test/                         无头 Chrome（CDP）探针
+├── tools/                             词典构建与文章定级脚本
+├── docs/
+│   ├── 01-架构与代码地图.md
+│   ├── 02-界面交互与动画方案.md
+│   ├── 03-词典与难度算法.md
+│   └── 04-构建-测试-发布.md
+└── reports/                           词表重建、难度审计、定级结果
+```
+
+### 模块
+
+| 模块 | 说明 |
+|---|---|
+| 前端 SPA | `mobile/.../assets/www/`。无框架、无打包器，ES5 直接跑在 WebView 里；整页替换 + 事件委托；难度条在内容容器之外，切档不重排 |
+| Android 壳 | `MainActivity` 提供 TTS、翻译、更新、下载、导入导出等能力；`RangeDownloader` 负责多镜像分块下载与断点续传 |
+| 词典流水线 | 以 ECDICT 为主源，处理释义、音标、词形、语料缺口；产物为 `dict.json` / `lemma.json`（不随仓库分发） |
+| 难度算法 | 词频保底 ∪ 考纲标签决定“已掌握”与划线；生词率反推文章档位，再用 Flesch 等独立信号审计离群 |
+| 构建发布 | 不用 Gradle：`aapt2 → javac → d8 → zipalign → apksigner`；发布前校验版本三处一致、包内资源哈希与清单关键项 |
+| 测试探针 | 真实页面 + 真实触控 + DOM 断言，覆盖分词、查词、划线、跟手、浮条、动画与 APK 自检 |
+
+细节见 `docs/` 四篇文档；建议按 01 → 03 → 02 → 04 的顺序读。
+
+### 构建与测试
+
+需要 Android SDK（build-tools 34 / platform 34）、JDK 17、Python 3.10+。
+`assets/www/data/` 下的文章与词典数据由内容流水线生成，不在仓库内；没有它们页面会停在启动页。
+
+```bash
+cd mobile
+python tools/build_apk.py                 # 产物：mobile/dist/闲读-<版本>-release.apk
+python _test/apk_check.py                 # 版本、资源哈希、清单自检
+```
+
+UI 探针需先起静态服务器（`cd mobile/android/app/src/main/assets/www && python -m http.server 8765`），
+再运行 `mobile/_test/` 下的脚本。Windows 控制台建议带 `PYTHONIOENCODING=utf-8`。
+
+### 引用与数据来源
+
+| 仓库 / 来源 | 用途 | 许可 |
+|---|---|---|
+| [lixiuyuanan/IdleRead](https://github.com/lixiuyuanan/IdleRead) | 应用仓库与更新源 | — |
+| [skywind3000/ECDICT](https://github.com/skywind3000/ECDICT) | 词条、音标、释义、词形与考试标签 | MIT |
+| [cmusphinx/cmudict](https://github.com/cmusphinx/cmudict) | CMU 发音词典，补全音标 | BSD 类（以仓库为准） |
+| [eng-to-ipa](https://pypi.org/project/eng-to-ipa/) | 调用 CMU 词典生成 IPA | 以 PyPI 页面为准 |
+| [COCA](https://www.english-corpora.org/coca/) | 词频排名基线 | 遵循其引用要求；不分发语料 |
+| [Project Gutenberg](https://www.gutenberg.org/) | 公版读本与覆盖率分析 | 公版文本，遵循站点条款 |
+| [websocket-client](https://github.com/websocket-client/websocket-client) | 探针的 WebSocket 客户端 | Apache-2.0 |
+| [GitHub CLI](https://github.com/cli/cli) | 发布脚本 | MIT |
+
+运行期第三方服务：DeepSeek（AI 翻译/番外）、腾讯翻译（备选），均由用户主动触发。
+
+### 许可
+
+仓库未附许可证，默认保留所有权利：可阅读、可提 issue / PR，未经许可不得再分发或商用。
+内置文章、译文与图片的版权归原作者和出版方所有；引用第三方仓库的代码时请保留其原始许可声明。
+
+---
+
 > 「只有这一种阅读，才是真正的阅读。」
 
 *灵感来源：[《终极英文书单》闲书原著推荐——从入门到进阶](https://b23.tv/VCI8oYB)*

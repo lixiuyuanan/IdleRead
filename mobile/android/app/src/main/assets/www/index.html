@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#f7f7f4">
+<title>闲读</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div id="boot" class="boot">
+  <div class="boot-mark">闲</div>
+  <div class="boot-name">闲读</div>
+  <div id="bootText" class="boot-text">正在装书…</div>
+</div>
+
+<div id="app" class="app hidden">
+  <header id="topbar" class="topbar">
+    <button id="backBtn" class="icon-btn hidden" aria-label="返回"></button>
+    <div class="top-title" id="topTitle">阅读</div>
+    <button id="ttsBtn" class="icon-btn hidden" aria-label="朗读"></button>
+    <button id="favBtn" class="icon-btn hidden" aria-label="收藏"></button>
+    <button id="actionBtn" class="icon-btn hidden" aria-label="操作"></button>
+  </header>
+
+  <div id="levelStrip" class="level-strip hidden"><div class="chips"></div></div>
+
+  <main id="view" class="view"></main>
+
+  <!-- 接着读:阅读列表页展开成卡片,其他页缩成右侧窄条;可上下拖 -->
+  <div id="contPill" class="cont-pill hidden"></div>
+
+  <nav id="tabbar" class="tabbar"></nav>
+</div>
+
+<input type="file" id="bookFile" accept=".txt,text/plain" hidden>
+<div id="backdrop" class="backdrop hidden"></div>
+<section id="sheet" class="sheet hidden" aria-modal="true"></section>
+<div id="pop" class="pop hidden" role="menu">
+  <div id="popBody"></div>
+  <div class="sel-hd" data-hd="l"></div>
+  <div class="sel-hd" data-hd="r"></div>
+</div>
+<div id="toast" class="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
